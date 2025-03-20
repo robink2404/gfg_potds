@@ -1,0 +1,67 @@
+class Solution {
+  public:
+       int isleafnode(Node* node)
+    {
+        if(node->left==nullptr&&node->right==nullptr)
+        return 1;
+        else
+        return -1;
+    }
+    
+    int issum(Node* node)
+    {
+         int ls;
+      int rs;
+      
+      if(node==nullptr)
+      return 0;
+      
+      ls=issum(node->left);
+      if(ls==-1)
+      return -1;
+      
+      rs=issum(node->right);
+      if(rs==-1)
+      return -1;
+      
+      if(isleafnode(node)==1||ls+rs==node->data)
+      return node->data+ls+rs;
+      else
+      return -1;
+    }
+    bool isSumTree(Node* root)
+    {
+     
+    if(isleafnode(root)==1)
+    return true;
+    
+      int x= issum(root);
+     if(x!=-1&&x==2*(root->data))
+     return true;
+     else
+     return false;
+     
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+
+    int t;
+    scanf("%d ", &t);
+    while (t--) {
+        string s;
+
+        getline(cin, s);
+
+        Node* root = buildTree(s);
+        Solution ob;
+        if (ob.isSumTree(root))
+            cout << "true" << endl;
+        else
+            cout << "false" << endl;
+    }
+    return 1;
+}
+// } Driver Code Ends
